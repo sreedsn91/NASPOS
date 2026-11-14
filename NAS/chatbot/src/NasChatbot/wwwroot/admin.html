@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NAS Chatbot — Manage Q&amp;A</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">NAS</div>
+      <div>NAS Chatbot<small>Manage questions &amp; answers</small></div>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn small" href="index.html">Open chat</a>
+    <button class="btn small hidden" id="logout" type="button">Sign out</button>
+  </header>
+
+  <!-- sign-in / first-time setup -->
+  <section id="auth" class="card auth-card hidden">
+    <h1 id="auth-title">Sign in</h1>
+    <p class="muted" id="auth-help">Enter the admin password to add and edit answers.</p>
+    <form id="auth-form">
+      <label class="field"><span>Admin password</span><input type="password" id="auth-password" autocomplete="current-password" required></label>
+      <label class="field hidden" id="auth-confirm-wrap"><span>Confirm password</span><input type="password" id="auth-confirm" autocomplete="new-password"></label>
+      <div class="error" id="auth-error"></div>
+      <button class="btn primary" type="submit" id="auth-submit">Sign in</button>
+    </form>
+  </section>
+
+  <main id="app" class="admin-main hidden">
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="questions" type="button">Questions <span class="badge" id="count-questions">0</span></button>
+      <button class="tab" data-tab="unanswered" type="button">Unanswered <span class="badge" id="count-unanswered">0</span></button>
+      <button class="tab" data-tab="test" type="button">Test the bot</button>
+      <button class="tab" data-tab="tools" type="button">Import / export &amp; password</button>
+    </nav>
+
+    <!-- questions -->
+    <section data-panel="questions">
+      <div class="split">
+        <div class="card">
+          <div class="toolbar">
+            <input type="search" id="filter" placeholder="Search questions…" aria-label="Search questions">
+            <select id="filter-category" aria-label="Category"><option value="">All categories</option></select>
+          </div>
+          <button class="btn primary" id="new" type="button">+ New question</button>
+          <div class="list" id="list"></div>
+        </div>
+
+        <form class="card" id="editor">
+          <h2 id="editor-title" class="flush-top">New question</h2>
+          <label class="field"><span>Question</span>
+            <input type="text" id="f-question" maxlength="300" required placeholder="How do I create a new role?">
+          </label>
+          <label class="field"><span>Other ways people ask it (one per line)</span>
+            <textarea id="f-variants" rows="4" placeholder="Where can I create user roles&#10;Add a new role&#10;Set permissions for a role"></textarea>
+            <small>More wordings = better matching. Typos and plurals are handled automatically.</small>
+          </label>
+          <div class="row">
+            <label class="field"><span>Category</span>
+              <input type="text" id="f-category" list="categories" maxlength="60" placeholder="Users &amp; roles">
+              <datalist id="categories"></datalist>
+            </label>
+            <label class="field"><span>Keywords (comma separated)</span>
+              <input type="text" id="f-tags" placeholder="roles &amp; rights, permission">
+            </label>
+          </div>
+          <label class="field"><span>Answer</span>
+            <textarea id="f-answer" rows="10" maxlength="6000" required placeholder="Go to **Settings › Roles &amp; Rights**:&#10;1. Click **New role**.&#10;2. …"></textarea>
+            <small>Formatting: **bold**, lines starting with “- ” become bullets, “1. ” become numbered steps.</small>
+          </label>
+          <div class="field"><span>Preview</span><div class="preview" id="preview"><span class="muted">The answer preview appears here.</span></div></div>
+          <div class="error" id="editor-error"></div>
+          <div class="actions">
+            <span class="notice" id="editor-notice"></span>
+            <div class="spacer"></div>
+            <button class="btn danger hidden" type="button" id="delete">Delete</button>
+            <button class="btn" type="button" id="try">Test this question</button>
+            <button class="btn primary" type="submit" id="save">Save</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- unanswered -->
+    <section data-panel="unanswered" class="card hidden">
+      <p class="muted flush-top">Questions the bot could not answer, or answers people marked 👎. Add an answer and the bot will know it next time.</p>
+      <table class="grid">
+        <thead><tr><th>Question asked</th><th>Times</th><th>Why</th><th>Last asked</th><th></th></tr></thead>
+        <tbody id="unanswered-rows"></tbody>
+      </table>
+      <p class="muted hidden" id="unanswered-empty">Nothing here — the bot answered everything.</p>
+    </section>
+
+    <!-- test -->
+    <section data-panel="test" class="card hidden">
+      <form id="test-form" class="toolbar">
+        <input type="search" id="test-q" placeholder="Type a question to see which answers match…" aria-label="Test question">
+        <button class="btn primary" type="submit">Test</button>
+      </form>
+      <div id="test-out" class="muted">The bot answers directly at 55% confidence or more, says “I think you are asking…” from 40%, and below that says it doesn't know.</div>
+    </section>
+
+    <!-- tools -->
+    <section data-panel="tools" class="hidden">
+      <div class="split">
+        <div class="card">
+          <h2 class="flush-top">Export / import</h2>
+          <p class="muted">Export saves every question to a .json file (a backup you can also copy to another PC). Import reads the same format.</p>
+          <p><button class="btn" id="export" type="button">Export questions</button></p>
+          <label class="field"><span>Import file (.json)</span><input type="file" id="import-file" accept=".json,application/json"></label>
+          <label class="field"><span><input type="checkbox" id="import-replace"> Replace all existing questions (otherwise they are added)</span></label>
+          <div class="error" id="import-error"></div>
+          <button class="btn primary" id="import" type="button">Import</button>
+          <span class="notice" id="import-notice"></span>
+        </div>
+        <form class="card" id="pw-form">
+          <h2 class="flush-top">Change admin password</h2>
+          <label class="field"><span>Current password</span><input type="password" id="pw-current" autocomplete="current-password" required></label>
+          <label class="field"><span>New password</span><input type="password" id="pw-next" autocomplete="new-password" required><small>At least 8 characters with letters and digits.</small></label>
+          <label class="field"><span>Confirm new password</span><input type="password" id="pw-confirm" autocomplete="new-password" required></label>
+          <div class="error" id="pw-error"></div>
+          <button class="btn primary" type="submit">Change password</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="common.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

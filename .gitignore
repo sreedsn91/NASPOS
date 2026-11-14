@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# .NET build output
+**/bin/
+**/obj/
+**/TestResults/
+
+# Node / Angular
+**/node_modules/
+**/.angular/
+**/dist/

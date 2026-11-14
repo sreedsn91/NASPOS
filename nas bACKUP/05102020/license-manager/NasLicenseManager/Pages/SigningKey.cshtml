@@ -1,0 +1,46 @@
+@page
+@model SigningKeyModel
+@{ ViewData["Title"] = "Signing key"; }
+<div class="page-header"><h1>Signing key</h1></div>
+<div class="card">
+    @if (!Model.Exists)
+    {
+        <div class="alert error">No signing key on this PC. Restore it from your backup below — keys can't be issued until then.</div>
+    }
+    else if (Model.Error is not null)
+    {
+        <div class="alert error">@Model.Error</div>
+    }
+    else
+    {
+        <div class="alert @(Model.MatchesApp ? "ok" : "error")">
+            @(Model.MatchesApp ? "Ready. This key matches the public key built into NAS POS Pro, so the keys you issue will be accepted."
+                               : "This signing key does NOT match the public key built into NAS POS Pro — keys issued with it will be rejected. Restore the correct backup.")
+        </div>
+        <dl class="facts">
+            <dt>Stored in</dt><dd class="mono">@Model.Folder</dd>
+            <dt>Public key</dt><dd class="mono wrap">@Model.PublicKey</dd>
+        </dl>
+    }
+    <p class="muted">The private key is encrypted for the Windows user running the License Manager. If it is lost, no more keys can be issued for installed copies of NAS POS Pro — keep a backup off this PC.</p>
+</div>
+<div class="cols">
+    <div class="card">
+        <h2>Back up</h2>
+        <form method="post" asp-page-handler="Backup" class="stack">
+            <label class="field"><span>Backup password (10+ characters)</span><input name="password" type="password" required autocomplete="new-password" /></label>
+            <label class="field"><span>Confirm password</span><input name="confirm" type="password" required autocomplete="new-password" /></label>
+            <div><button class="btn primary" type="submit" disabled="@(!Model.Exists)">Download backup (.pem)</button></div>
+            <small class="muted">Keep the file on a pen drive / cloud and the password in a password manager.</small>
+        </form>
+    </div>
+    <div class="card">
+        <h2>Restore from backup</h2>
+        <form method="post" asp-page-handler="Restore" enctype="multipart/form-data" class="stack">
+            <input type="file" name="file" accept=".pem" required />
+            <label class="field"><span>Backup password</span><input name="password" type="password" required autocomplete="off" /></label>
+            @if (Model.Exists) { <label class="check"><input type="checkbox" name="overwrite" value="true" /> Replace the signing key on this PC</label> }
+            <div><button class="btn" type="submit">Restore</button></div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Setup wizard. .NET Framework 4.8 ships with Windows 10/11 and Server 2016+, so the exe runs before anything is installed.
+       build-installer.ps1 appends the payload zip (app + scripts + prerequisites) to the compiled exe. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>KshethraSetup</AssemblyName>
+    <RootNamespace>KshethraSetup</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Must run 64-bit: a 32-bit process would start the WOW64 PowerShell, which cannot enable Windows features. -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Product>Kshethra Mithra Setup</Product>
+    <Company>Kshethra Mithra</Company>
+    <Description>Installs Kshethra Mithra on IIS with SQL Server</Description>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ServiceProcess" />
+  </ItemGroup>
+
+</Project>

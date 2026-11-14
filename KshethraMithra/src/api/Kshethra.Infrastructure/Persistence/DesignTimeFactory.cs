@@ -1,0 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+
+namespace Kshethra.Infrastructure.Persistence;
+
+/// <summary>Used only by `dotnet ef migrations add`; no connection is opened and no secret is needed.</summary>
+public sealed class DesignTimeFactory : IDesignTimeDbContextFactory<AppDbContext>
+{
+    public AppDbContext CreateDbContext(string[] args) =>
+        new(new DbContextOptionsBuilder<AppDbContext>()
+            .UseSqlServer(Environment.GetEnvironmentVariable("KSHETHRA_DESIGN_CONNECTION") ?? "Server=(design-time);Database=Kshethra")
+            .Options);
+}

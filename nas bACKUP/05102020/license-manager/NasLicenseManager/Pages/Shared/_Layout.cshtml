@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] is string t ? t + " · " : "")NAS License Manager</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var signedIn = User.Identity?.IsAuthenticated == true;
+        var isAdmin = User.HasClaim("admin", "1");
+        var page = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+        string Active(string prefix) => page.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    }
+    <header class="topbar">
+        <a class="brand" href="/">
+            <span class="mark">NAS</span>
+            <span><b>License Manager</b><small>NAS POS Pro subscriptions</small></span>
+        </a>
+        @if (signedIn)
+        {
+            <nav>
+                <a class="@(page == "/Index" ? "active" : "")" href="/">Dashboard</a>
+                <a class="@Active("/Customers")" href="/Customers">Customers</a>
+                <a class="@Active("/Licenses")" href="/Licenses">Issued keys</a>
+                @if (isAdmin)
+                {
+                    <a class="@Active("/Staff")" href="/Staff">Staff</a>
+                    <a class="@Active("/SigningKey")" href="/SigningKey">Signing key</a>
+                }
+            </nav>
+            <div class="me">
+                <a href="/Account/Password" title="Change password">@User.FindFirst("display")?.Value</a>
+                <form method="post" action="/Logout"><button class="link" type="submit">Sign out</button></form>
+            </div>
+        }
+    </header>
+    <main class="page">
+        @if (TempData["ok"] is string ok) { <div class="alert ok" role="status">@ok</div> }
+        @if (TempData["error"] is string err) { <div class="alert error" role="alert">@err</div> }
+        @RenderBody()
+    </main>
+    <script src="/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

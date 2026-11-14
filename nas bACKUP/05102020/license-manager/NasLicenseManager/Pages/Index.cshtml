@@ -1,0 +1,57 @@
+@page
+@model IndexModel
+@{ ViewData["Title"] = "Dashboard"; }
+<div class="page-header"><h1>Dashboard</h1><a class="btn primary" href="/Customers/Edit">+ New customer</a></div>
+
+<div class="tiles">
+    <a class="tile" href="/Customers"><span>Customers</span><b>@Model.Customers</b></a>
+    <a class="tile ok" href="/Customers?status=active"><span>Licensed</span><b>@Model.Active</b></a>
+    <a class="tile warn" href="/Customers?status=ending"><span>Ending in 30 days</span><b>@Model.EndingSoon</b></a>
+    <a class="tile danger" href="/Customers?status=expired"><span>Expired</span><b>@Model.Expired</b></a>
+    <a class="tile" href="/Licenses"><span>Keys issued this month</span><b>@Model.IssuedThisMonth</b></a>
+</div>
+
+<div class="card">
+    <h2>Needs attention</h2>
+    @if (Model.Attention.Count == 0)
+    {
+        <p class="muted">Nothing is ending in the next 30 days.</p>
+    }
+    else
+    {
+        <table class="grid">
+            <thead><tr><th>Company</th><th>Contact</th><th>Status</th><th>Valid until</th><th>Users</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var r in Model.Attention)
+            {
+                <tr>
+                    <td><a href="/Customers/Details/@r.Customer.Id"><b>@r.Customer.CompanyName</b></a></td>
+                    <td>@r.Customer.ContactPerson @r.Customer.Phone</td>
+                    <td><span class="badge @r.State.Css">@r.State.State</span>
+                        @if (r.State.DaysLeft is { } d) { <span class="muted small">@(d < 0 ? $"{-d} days ago" : $"{d + 1} days left")</span> }</td>
+                    <td>@LicenseIssuer.Dmy(r.State.Current?.ExpiresOn)</td>
+                    <td>@(r.State.Current is null ? "" : LicenseIssuer.UsersText(r.State.Current.MaxUsers))</td>
+                    <td class="actions"><a class="btn sm" href="/Customers/Details/@r.Customer.Id#issue">@(r.State.Current is null ? "Issue key" : "Renew")</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+<div class="card">
+    <h2>Recently issued</h2>
+    <table class="grid">
+        <thead><tr><th>Issued</th><th>Company</th><th>Length</th><th>Users</th><th>Valid until</th><th>By</th></tr></thead>
+        <tbody>
+        @foreach (var l in Model.Recent)
+        {
+            <tr><td class="nowrap">@l.IssuedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                <td><a href="/Customers/Details/@l.CustomerId">@l.CompanyName</a></td>
+                <td>@LicenseIssuer.PlanName(l.Months)</td><td>@LicenseIssuer.UsersText(l.MaxUsers)</td>
+                <td>@(l.ExpiresOn is null ? "Lifetime" : LicenseIssuer.Dmy(l.ExpiresOn))</td><td>@l.IssuedBy</td></tr>
+        }
+        @if (Model.Recent.Count == 0) { <tr><td colspan="6" class="empty">No keys issued yet.</td></tr> }
+        </tbody>
+    </table>
+</div>

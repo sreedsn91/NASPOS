@@ -1,0 +1,15 @@
+@page
+@model SetupModel
+@{ ViewData["Title"] = "First-time setup"; }
+<div class="card narrow">
+    <h1>Welcome — first-time setup</h1>
+    <p class="muted">Create the administrator account for the License Manager. Only people with an account here can issue NAS POS Pro keys.</p>
+    @if (Model.Error is not null) { <div class="alert error">@Model.Error</div> }
+    <form method="post" class="stack">
+        <label class="field"><span>User name</span><input name="UserName" value="@Model.UserName" required autocomplete="username" /></label>
+        <label class="field"><span>Your name</span><input name="DisplayName" value="@Model.DisplayName" /></label>
+        <label class="field"><span>Password (8+ characters, letters and digits)</span><input name="Password" type="password" required autocomplete="new-password" /></label>
+        <label class="field"><span>Confirm password</span><input name="Confirm" type="password" required autocomplete="new-password" /></label>
+        <button class="btn primary" type="submit">Create administrator</button>
+    </form>
+</div>

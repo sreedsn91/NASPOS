@@ -1,0 +1,37 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261016155858
+Username: SREE\sreed
+RunAs User: SREE\sreed
+Configuration Name: 
+Machine: SREE (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File D:\NasLicenseManager\deploy-iis.ps1
+Process ID: 19592
+PSVersion: 5.1.22621.6133
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22621.6133
+BuildVersion: 10.0.22621.6133
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+== Publishing
+Restore complete (0.3s)
+  NasLicenseManager succeeded (0.6s) → D:\NasLicenseManager\publish\
+
+Build succeeded in 1.5s
+
+Workload updates are available. Run `dotnet workload list` for more information.
+== Application pool NasLicMgr (runs as IIS AppPool\NasLicMgr)
+== Copying files to C:\inetpub\NasLicenseManager
+== Signing key folder C:\ProgramData\NasLicenseManager
+== SQL Server login for IIS AppPool\NasLicMgr on localhost\MSSQLSERVER2025/NasLicensing
+
+== Website NasLicenseManager on http://localhost:5300
+== Checking http://localhost:5300
+OK: HTTP 200. The License Manager is running in IIS.
+**********************
+Windows PowerShell transcript end
+End time: 20261016155909
+**********************

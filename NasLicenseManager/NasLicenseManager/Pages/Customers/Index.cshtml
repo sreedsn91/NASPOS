@@ -1,0 +1,39 @@
+@page
+@model NasLicenseManager.Pages.Customers.IndexModel
+@{ ViewData["Title"] = "Customers"; }
+<div class="page-header"><h1>Customers <span class="muted">@Model.Rows.Count</span></h1><a class="btn primary" href="/Customers/Edit">+ New customer</a></div>
+
+<form method="get" class="toolbar">
+    <input name="q" value="@Model.Q" placeholder="Search company, GSTIN, phone, contact, city or key ID…" />
+    <select name="status">
+        <option value="" selected="@(string.IsNullOrEmpty(Model.Status))">All</option>
+        <option value="active" selected="@(Model.Status == "active")">Licensed</option>
+        <option value="ending" selected="@(Model.Status == "ending")">Ending in 30 days</option>
+        <option value="expired" selected="@(Model.Status == "expired")">Expired</option>
+        <option value="none" selected="@(Model.Status == "none")">No key yet</option>
+    </select>
+    <button class="btn" type="submit">Search</button>
+</form>
+
+<div class="card flush">
+<table class="grid">
+    <thead><tr><th>Company</th><th>Product</th><th>GSTIN</th><th>Contact</th><th>Length</th><th>Users</th><th>Valid until</th><th>Status</th></tr></thead>
+    <tbody>
+    @foreach (var r in Model.Rows)
+    {
+        var cur = r.State.Current;
+        <tr class="clickable" data-href="/Customers/Details/@r.Customer.Id">
+            <td><a href="/Customers/Details/@r.Customer.Id"><b>@r.Customer.CompanyName</b></a>@if (r.Customer.City is { Length: > 0 }) { <span class="muted small"> · @r.Customer.City</span> }</td>
+            <td>@ProductCodes.Name(r.Customer.Product)</td>
+            <td class="mono">@r.Customer.Gstin</td>
+            <td>@r.Customer.ContactPerson <span class="muted">@r.Customer.Phone</span></td>
+            <td>@(cur is null ? "—" : LicenseIssuer.PlanName(cur.Months))</td>
+            <td>@(cur is null ? "" : LicenseIssuer.UsersText(cur.MaxUsers))</td>
+            <td>@(cur is null ? "" : cur.ExpiresOn is null ? "Lifetime" : LicenseIssuer.Dmy(cur.ExpiresOn))</td>
+            <td><span class="badge @r.State.Css">@r.State.State</span></td>
+        </tr>
+    }
+    @if (Model.Rows.Count == 0) { <tr><td colspan="8" class="empty">No customers found.</td></tr> }
+    </tbody>
+</table>
+</div>

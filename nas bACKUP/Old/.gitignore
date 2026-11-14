@@ -1,0 +1,23 @@
+# .NET
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+*.suo
+.vs/
+
+# Node / Angular
+src/web/node_modules/
+src/web/dist/
+src/web/.angular/
+src/web/test-results/
+src/web/playwright-report/
+
+# Installer build output and downloaded prerequisites
+installer/cache/
+installer/dist/
+
+# Secrets — never commit
+deploy/.env
+*.env.local
+appsettings.*.local.json

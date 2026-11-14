@@ -1,0 +1,14 @@
+@page
+@model LoginModel
+@{ ViewData["Title"] = "Sign in"; }
+<div class="card narrow">
+    <h1>Sign in</h1>
+    <p class="muted">NAS POS Pro License Manager</p>
+    @if (Model.Error is not null) { <div class="alert error">@Model.Error</div> }
+    <form method="post" class="stack">
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <label class="field"><span>User name</span><input name="UserName" value="@Model.UserName" required autofocus autocomplete="username" /></label>
+        <label class="field"><span>Password</span><input name="Password" type="password" required autocomplete="current-password" /></label>
+        <button class="btn primary" type="submit">Sign in</button>
+    </form>
+</div>

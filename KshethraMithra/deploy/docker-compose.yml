@@ -1,0 +1,74 @@
+# Kshethra Mithra — SQL Server + API + web (nginx reverse proxy).
+# Usage:  cp .env.example .env  (fill in strong secrets)  &&  docker compose up -d --build
+# Put a TLS-terminating proxy (or a load balancer) in front of "web" for HTTPS in production.
+name: kshethra
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${SQL_ADMIN_PASSWORD:?set SQL_ADMIN_PASSWORD in .env}
+      MSSQL_PID: Express
+    volumes:
+      - sqldata:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      retries: 20
+    restart: unless-stopped
+
+  # Operator-only step: applies EF migrations with the admin connection, then exits.
+  migrate:
+    build: ../src/api
+    command: ["--migrate"]
+    environment:
+      ConnectionStrings__Default: "Server=sqlserver;Database=${DB_NAME:-Kshethra};User Id=sa;Password=${SQL_ADMIN_PASSWORD};TrustServerCertificate=True"
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:?set JWT_SIGNING_KEY in .env}
+    depends_on:
+      sqlserver: { condition: service_healthy }
+    restart: "no"
+
+  # Creates / updates the least-privilege login the API uses.
+  db-login:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    entrypoint: ["/bin/bash", "-c", "/opt/mssql-tools18/bin/sqlcmd -C -S sqlserver -U sa -P \"$$SA\" -v AppPassword=\"$$APP\" DbName=\"$$DB\" -i /sql/create-app-login.sql"]
+    environment:
+      SA: ${SQL_ADMIN_PASSWORD}
+      APP: ${SQL_APP_PASSWORD:?set SQL_APP_PASSWORD in .env}
+      DB: ${DB_NAME:-Kshethra}
+    volumes:
+      - ./sql:/sql:ro
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    restart: "no"
+
+  api:
+    build: ../src/api
+    environment:
+      ConnectionStrings__Default: "Server=sqlserver;Database=${DB_NAME:-Kshethra};User Id=kshethra_app;Password=${SQL_APP_PASSWORD};TrustServerCertificate=True"
+      Jwt__SigningKey: ${JWT_SIGNING_KEY}
+      Business__UtcOffset: ${BUSINESS_UTC_OFFSET:-05:30}
+      # TLS is terminated in front of the "web" proxy; set to true if the API itself serves HTTPS.
+      Security__HttpsRedirect: "false"
+      Messaging__Sms__UrlTemplate: ${SMS_URL_TEMPLATE:-}
+      Messaging__Sms__ApiKey: ${SMS_API_KEY:-}
+      Messaging__Sms__SenderId: ${SMS_SENDER_ID:-}
+      Messaging__Email__Host: ${SMTP_HOST:-}
+      Messaging__Email__Port: ${SMTP_PORT:-587}
+      Messaging__Email__UserName: ${SMTP_USER:-}
+      Messaging__Email__Password: ${SMTP_PASSWORD:-}
+      Messaging__Email__From: ${SMTP_FROM:-}
+    depends_on:
+      db-login: { condition: service_completed_successfully }
+    restart: unless-stopped
+
+  web:
+    build: ../src/web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on: [api]
+    restart: unless-stopped
+
+volumes:
+  sqldata:

@@ -1,0 +1,33 @@
+@page
+@model NasLicenseManager.Pages.Licenses.IndexModel
+@{ ViewData["Title"] = "Issued keys"; }
+<div class="page-header"><h1>Issued keys <span class="muted">@Model.Rows.Count</span></h1>
+    <a class="btn" href="/Licenses?handler=Csv&q=@Uri.EscapeDataString(Model.Q ?? "")&from=@Model.From?.ToString("yyyy-MM-dd")&to=@Model.To?.ToString("yyyy-MM-dd")">Download CSV</a></div>
+<form method="get" class="toolbar">
+    <input name="q" value="@Model.Q" placeholder="Company, GSTIN, key ID or notes…" />
+    <label class="inline">From <input type="date" name="from" value="@Model.From?.ToString("yyyy-MM-dd")" /></label>
+    <label class="inline">To <input type="date" name="to" value="@Model.To?.ToString("yyyy-MM-dd")" /></label>
+    <button class="btn" type="submit">Search</button>
+</form>
+<div class="card flush">
+<table class="grid">
+    <thead><tr><th>Issued</th><th>Company</th><th>Product</th><th>Key ID</th><th>Length</th><th>Users</th><th>Valid</th><th>Notes</th><th>By</th></tr></thead>
+    <tbody>
+    @foreach (var l in Model.Rows)
+    {
+        <tr>
+            <td class="nowrap">@l.IssuedAt.ToString("dd-MM-yyyy HH:mm")</td>
+            <td><a href="/Customers/Details/@l.CustomerId">@l.CompanyName</a>@if (l.Gstin is { } g) { <span class="muted small mono"> @g</span> }</td>
+            <td>@ProductCodes.Name(l.Product)</td>
+            <td class="mono">@l.KeyId</td>
+            <td>@LicenseIssuer.PlanName(l.Months)</td>
+            <td>@LicenseIssuer.UsersText(l.MaxUsers)</td>
+            <td class="nowrap">@(l.ExpiresOn is null ? "Lifetime" : $"{LicenseIssuer.Dmy(l.StartsOn)} – {LicenseIssuer.Dmy(l.ExpiresOn)}")</td>
+            <td>@l.Notes</td>
+            <td>@l.IssuedBy</td>
+        </tr>
+    }
+    @if (Model.Rows.Count == 0) { <tr><td colspan="9" class="empty">No keys found.</td></tr> }
+    </tbody>
+</table>
+</div>

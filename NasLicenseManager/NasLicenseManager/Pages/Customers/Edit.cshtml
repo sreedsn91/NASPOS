@@ -1,0 +1,30 @@
+@page "{id:int?}"
+@model NasLicenseManager.Pages.Customers.EditModel
+@{ ViewData["Title"] = Model.Id is null ? "New customer" : "Edit customer"; }
+<div class="page-header"><h1>@(Model.Id is null ? "New customer" : "Edit customer")</h1>
+    @if (Model.Id is not null) { <a class="btn" href="/Customers/Details/@Model.Id">Back</a> }</div>
+<div class="card narrow-wide">
+    @if (Model.Error is not null) { <div class="alert error">@Model.Error</div> }
+    <form method="post" class="form-grid">
+        <div class="field span-2"><span>Product *</span>
+            <div class="radios">
+                <label><input type="radio" name="Product" value="@ProductCodes.NasPos" checked="@(Model.Product == ProductCodes.NasPos)" /> NAS POS Pro (shop / supermarket)</label>
+                <label><input type="radio" name="Product" value="@ProductCodes.Kshethra" checked="@(Model.Product == ProductCodes.Kshethra)" /> Kshethra Mithra (temple)</label>
+            </div>
+            <small class="muted">A key only works in the product it is issued for.</small></div>
+        <label class="field span-2"><span>Company name *</span><input name="CompanyName" value="@Model.CompanyName" required maxlength="200" />
+            <small class="muted">Exactly as the shop / temple types it in the application (capitals, spaces and punctuation don't matter). The key only works for this name.</small></label>
+        <label class="field"><span>GSTIN (optional)</span><input name="Gstin" value="@Model.Gstin" maxlength="15" class="upper" />
+            <small class="muted">If given, keys work only for a company with this GSTIN.</small></label>
+        <label class="field"><span>City</span><input name="City" value="@Model.City" maxlength="100" /></label>
+        <label class="field"><span>Contact person</span><input name="ContactPerson" value="@Model.ContactPerson" maxlength="100" /></label>
+        <label class="field"><span>Phone</span><input name="Phone" value="@Model.Phone" maxlength="40" /></label>
+        <label class="field span-2"><span>E-mail</span><input name="Email" type="email" value="@Model.Email" maxlength="200" /></label>
+        <label class="field span-2"><span>Notes</span><textarea name="Notes" rows="3" maxlength="2000">@Model.Notes</textarea></label>
+        @if (Model.HasKeys)
+        {
+            <div class="alert warn span-2">Keys already issued keep the company name and GSTIN they were made for. If you change them, issue a new key.</div>
+        }
+        <div class="span-2"><button class="btn primary" type="submit">Save</button></div>
+    </form>
+</div>

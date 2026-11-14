@@ -1,0 +1,641 @@
+{
+  "entries": [
+    {
+      "category": "Getting started",
+      "question": "What is NAS POS Pro?",
+      "variants": ["What can NAS POS do", "Purpose of this software", "Features of NAS POS Pro", "Overview of the app"],
+      "tags": ["overview", "about", "introduction"],
+      "answer": "NAS POS Pro is a web application for a shop's billing, stock, GST and accounts in one place.\n\nIt covers:\n- Touch POS and keyboard invoicing\n- Purchases, batch/MRP/expiry stock, BOM and production\n- Receipts, payments, journals and bill-by-bill outstanding\n- Loyalty points, offers and price lists\n- GSTR-1 and about 70 reports\n- Printing, SMS/e-mail, multiple companies and year-end closing"
+    },
+    {
+      "category": "Getting started",
+      "question": "How do I open the app?",
+      "variants": ["What is the address of the app", "Which URL should I open", "Which browser should I use", "App link", "How to start NAS POS"],
+      "tags": ["url", "localhost", "4200", "4300", "chrome", "edge", "browser"],
+      "answer": "Use **Chrome** or **Edge**.\n\n- Developer setup: open **http://localhost:4200**\n- Installed with NasPosSetup.exe: open **http://localhost:4300**\n- Other counters on the network: **http://<server-pc-name>:4300**\n\nThe software must be running on the server computer. Connect the barcode scanner, thermal printer and weighing scale if you have them."
+    },
+    {
+      "category": "Getting started",
+      "question": "How do I create the company for the first time?",
+      "variants": ["First time setup", "How to create a new company", "Welcome setup screen", "Create shop and admin", "Initial setup"],
+      "tags": ["first-time setup", "welcome", "company name", "state", "gstin"],
+      "answer": "The first time you open the app, the **Welcome — first-time setup** screen appears:\n\n1. Enter the **Company name**.\n2. Choose the **State** — it decides CGST+SGST (same state) or IGST (other state).\n3. **GSTIN** is optional; a valid GSTIN picks the state automatically.\n4. Fill in **Address, City and Phone** (they print on the bill).\n5. **Financial year starts**: normally 1 April (leave empty for automatic).\n6. Enter the **Admin user name**, display name and a password (at least 8 characters with letters and digits).\n7. Click **Create company**.\n\nThe account groups, Cash/Bank/Sales/Purchase/GST ledgers and a “Cash Customer” are created automatically. No default password ships — you set it yourself."
+    },
+    {
+      "category": "Getting started",
+      "question": "How do I sign in?",
+      "variants": ["How to login", "Login screen", "Sign in to the app", "What is the counter name on login"],
+      "tags": ["login", "user name", "counter", "computer name"],
+      "answer": "Enter your **User name** and **Password**, then click **Sign in**.\n\nIn **Counter / computer name** give this computer a name such as COUNTER-1 — counter-wise reports (Counters today, End of Day) need it.\n\nFive wrong passwords in a row lock the account for 15 minutes."
+    },
+    {
+      "category": "Getting started",
+      "question": "How do I quickly find a screen or report?",
+      "variants": ["Command palette", "Search menu", "Jump to any screen", "Where is the menu", "Ctrl K"],
+      "tags": ["ctrl+k", "palette", "navigation", "menu"],
+      "answer": "Every screen opens from the menu on the left. You can also press **Ctrl+K** and type the screen or report name, then press Enter."
+    },
+    {
+      "category": "Getting started",
+      "question": "In what order should I set up the shop?",
+      "variants": ["Setup steps", "What should I do first", "Getting started checklist", "Steps to start billing"],
+      "tags": ["order", "steps", "guide"],
+      "answer": "Recommended order:\n1. First-time setup (company + admin)\n2. Settings › Company Profile, Features, Screen Options, Numbering, Print Schemes\n3. Roles and users\n4. Masters: categories → salespeople → products → customers/suppliers\n5. Opening balances and opening stock\n6. Purchases, then billing\n7. Receipts/payments, reports, backups and year-end closing"
+    },
+    {
+      "category": "Settings",
+      "question": "How do I change the company profile, address or logo?",
+      "variants": ["Edit company details", "Change shop name address", "Add logo to bill", "Invoice footer text", "Change GSTIN of company"],
+      "tags": ["company profile", "logo", "footer", "pan", "legal name"],
+      "answer": "Go to **Settings › Company Profile**:\n1. Fill in Legal name, Address, PIN code, PAN, E-mail and GSTIN.\n2. **Invoice footer text** is printed at the bottom of every bill.\n3. **Logo**: choose a PNG/JPEG under 1 MB (shown on A4 bills).\n4. Click **Save**.\n\nOnly the admin or a user with the Company right can change this."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I turn features on or off?",
+      "variants": ["Enable batch tracking", "Enable expiry dates", "Settings features", "Turn on loyalty points", "Enable alternate units", "Enable production BOM"],
+      "tags": ["features", "batch", "alternate units", "expiry", "bom", "price lists", "offers", "loyalty"],
+      "answer": "Open **Settings › Features**, switch each option on or off and click **Save**.\n\nCommon options: Batch / barcode tracking, Alternate units (box/piece), Multiple MRP per batch, Expiry dates, Production / BOM, Negative stock (Allow / Warn / Block), Update product rates on purchase, Input tax is claimable, Price lists, Item offers, Loyalty points, Credit limit (Ignore / Warn / Block), Salesperson required, Round-off, Bill-by-bill outstanding, GST cess, Weighing-scale barcodes, Pole display, SMS / E-mail and decimal places."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I allow or block selling items with no stock?",
+      "variants": ["Negative stock setting", "Stop billing when stock is zero", "Allow negative stock"],
+      "tags": ["negative stock", "allow", "warn", "block"],
+      "answer": "In **Settings › Features** set **Negative stock** to:\n- **Allow** — sell without any message\n- **Warn** — shows a warning; click “Save anyway” to continue\n- **Block** — the bill will not save\n\nThen click **Save**."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I change screen options for a bill type?",
+      "variants": ["Print on save", "Scanner mode", "Tax inclusive price", "Disable rate editing", "Free quantity column", "Ask before printing", "Cash desk on save"],
+      "tags": ["screen options", "pos", "tax inclusive", "rate editing"],
+      "answer": "Go to **Settings › Screen Options**, choose the bill type at the top and set its options, for example:\n- POS Sales: Print on save, Scanner mode, Cash desk on save, Unit price includes tax\n- Sales: Ask before printing, Free quantity column\n- Purchase: Free quantity column, Print scheme A4\n\nTurn on **Disable rate editing** to stop cashiers changing prices."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I change the bill number prefix?",
+      "variants": ["Change invoice numbering", "Bill number series", "Invoice prefix", "Start bill number from"],
+      "tags": ["numbering", "prefix", "series", "voucher number"],
+      "answer": "Go to **Settings › Numbering** and change the prefix for each type (for example Sales = SB/ gives SB/1, SB/2…).\n\nThe number can only move forward, and numbers never repeat even when several counters bill at the same time. Bill numbers restart from 1 in a new financial year."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I change the print format or paper size?",
+      "variants": ["Thermal printer settings", "Print scheme", "Change bill paper size A4 A5", "Print Malayalam item names", "Customise bill print"],
+      "tags": ["print schemes", "thermal", "80mm", "58mm", "a4", "a5", "regional"],
+      "answer": "Go to **Settings › Print Schemes**, choose a bill type and change the paper (A4, A5, Thermal 80 mm, Thermal 58 mm), heading, columns and footer lines. POS uses Thermal 80 mm by default.\n\nTurn on **Regional item names** to also print each item's Malayalam name."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I change the theme or colours?",
+      "variants": ["Dark mode", "Change appearance", "Change app colour"],
+      "tags": ["appearance", "theme", "dark"],
+      "answer": "Open **Settings › Appearance (theme)** and pick a theme. This is a personal setting — every signed-in user can change their own."
+    },
+    {
+      "category": "Settings",
+      "question": "How do I set up SMS and e-mail?",
+      "variants": ["Send bill SMS", "Email invoice to customer", "SMS template", "Messaging settings", "Why SMS is not sent"],
+      "tags": ["messaging", "sms", "email", "smtp", "gateway", "outbox"],
+      "answer": "1. Turn on **SMS / E-mail** in **Settings › Features**.\n2. In **Settings › Messaging** edit the templates using tags like {CustomerName}, {BillNo}, {BillAmount}.\n3. The SMS gateway and SMTP must be configured on the server (Messaging:Sms and Messaging:Email settings).\n\nCheck the delivery status in the **Outbox**. Customers need **SMS opt-in** ticked on their master."
+    },
+    {
+      "category": "Users & roles",
+      "question": "How do I create a new role?",
+      "variants": ["Where can I create user roles", "Add a new role", "Create cashier role", "Set permissions for a role", "Roles and rights", "Give access rights"],
+      "tags": ["roles & rights", "permission matrix", "settings roles"],
+      "answer": "Go to **Settings › Roles & Rights**:\n1. Click **New role**.\n2. Enter the **Role name** (for example Cashier) and keep **Active** ticked.\n3. In the matrix tick the rights per screen: Read, Add, Edit, Cancel, Delete, Print, Export, Email, Sms. Clicking a column heading ticks the whole column; **All** ticks a whole row.\n4. Click **Save**.\n\nYou need the Add right on the Roles screen. The Administrator role always has every right and cannot be changed."
+    },
+    {
+      "category": "Users & roles",
+      "question": "Which rights should a cashier have?",
+      "variants": ["Cashier permissions", "Recommended rights for cashier", "What to give cashier role"],
+      "tags": ["cashier", "rights"],
+      "answer": "A typical Cashier role:\n- POS, Sales: Read, Add, Print, Sms\n- SalesReturn: Read, Add\n- Customer: Read, Add\n- Dashboard: off (if cashiers should not see revenue)\n\nDo not give Cancel, Delete or Edit to cashiers — only the owner should cancel bills."
+    },
+    {
+      "category": "Users & roles",
+      "question": "How do I add a new user?",
+      "variants": ["Create user login", "Add staff member login", "Create cashier user", "Add new staff", "Assign role to user"],
+      "tags": ["settings users", "new user", "role"],
+      "answer": "Go to **Settings › Users** → **New user**:\n1. Enter **User name** and **Display name**.\n2. Choose the **Role**.\n3. Set a password (at least 8 characters with letters and digits).\n4. Click **Save**.\n\nThe user should change the password after the first login using the **Password** button at the top."
+    },
+    {
+      "category": "Users & roles",
+      "question": "How do I disable a user who left?",
+      "variants": ["Remove user access", "Deactivate user", "Block staff login", "Delete user"],
+      "tags": ["inactive", "active", "deactivate"],
+      "answer": "Open **Settings › Users**, select the user, untick **Active** and click **Save**. All their sessions end immediately. The user stays in the User Log history."
+    },
+    {
+      "category": "Users & roles",
+      "question": "How do I change my password?",
+      "variants": ["Reset my password", "Change login password", "Update password"],
+      "tags": ["password button", "top bar"],
+      "answer": "Click the **Password** button in the top bar, enter your current password and the new one (at least 8 characters with letters and digits), then save.\n\nIf a user forgot their password, the admin can reset it in **Settings › Users**."
+    },
+    {
+      "category": "Users & roles",
+      "question": "My account is locked after wrong passwords",
+      "variants": ["Too many failed attempts", "Account locked", "Cannot login locked", "Forgot password"],
+      "tags": ["lockout", "15 minutes", "failed attempts"],
+      "answer": "Five wrong passwords in a row lock the account for **15 minutes**. Wait 15 minutes, or ask the admin to reset your password in **Settings › Users**."
+    },
+    {
+      "category": "Users & roles",
+      "question": "How do I set the counter name?",
+      "variants": ["Counter not set", "Set computer name for counter", "Counter wise report name"],
+      "tags": ["counter", "counter-1", "top bar"],
+      "answer": "On each billing computer click **Counter: not set** in the top bar and enter a name such as COUNTER-1. The dashboard's “Counters today” and the End of Day report are split by this name."
+    },
+    {
+      "category": "Users & roles",
+      "question": "Where can I see who did what?",
+      "variants": ["User log", "Audit log", "Activity history", "Track user actions"],
+      "tags": ["user log", "audit"],
+      "answer": "Open **Settings › User Log**. It records every user's actions — that's why each staff member should have their own login."
+    },
+    {
+      "category": "Users & roles",
+      "question": "Why does it ask for my password again?",
+      "variants": ["Confirm it is you", "Password asked again when cancelling", "Re-enter password"],
+      "tags": ["step-up", "confirm", "security"],
+      "answer": "Sensitive actions — cancelling a bill, year-end closing, restore and reset — show “Confirm it is you” and ask for your password again. This is normal and protects against misuse."
+    },
+    {
+      "category": "Masters",
+      "question": "In what order should I add masters?",
+      "variants": ["Masters setup order", "What masters to create first"],
+      "tags": ["masters", "order"],
+      "answer": "Add masters in this order before billing: **categories → salespeople (employees) → products → customers/suppliers**. With “Salesperson required” on, a sale cannot be saved without a salesperson."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I add a category?",
+      "variants": ["Create product category", "Category tabs in POS", "Show category in touch POS", "Add manufacturer", "Add area"],
+      "tags": ["categories", "manufacturers", "areas", "show in pos"],
+      "answer": "Open **Masters › Categories**, type the name and click **Add**. Categories with **Show in POS** ticked become tabs in Touch POS — set Colour and Order, then **Save**.\n\n**Masters › Manufacturers** (brands) and **Masters › Areas** (customer localities for area-wise reports) work the same way."
+    },
+    {
+      "category": "Masters",
+      "question": "Why can't I delete a master entry?",
+      "variants": ["Cannot delete category", "Delete product in use", "Used by count"],
+      "tags": ["used by", "in use", "active"],
+      "answer": "An entry that is already used cannot be deleted — the **Used by** count shows why. Untick **Active** instead to hide it from new entries."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I add a salesperson?",
+      "variants": ["Add employee", "Create salesman", "Salesperson commission"],
+      "tags": ["employees", "commission", "salesperson"],
+      "answer": "Open **Masters › Employees** → **New employee**: enter the Name and Commission %, tick **Salesperson**, and **Save**. Each employee automatically gets a ledger under the “Employees” group for salary and commission entries."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I add a customer?",
+      "variants": ["Create new customer", "Customer credit limit", "Add customer from bill", "Customer master"],
+      "tags": ["customers", "credit limit", "credit days", "mobile"],
+      "answer": "Open **Masters › Customers** → **New**: enter Name, Mobile, State and Area; optionally Credit limit, Credit days, Loyalty scheme, Price list and **SMS opt-in**. Leave Code blank to auto-number (C0001…). Click **Save**.\n\nYou can also add a customer straight from a bill screen with **+ new**."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I add a supplier?",
+      "variants": ["Create new supplier", "Add vendor", "Supplier master"],
+      "tags": ["suppliers", "gstin", "state"],
+      "answer": "Open **Masters › Suppliers** → **New**, enter the Name and GSTIN (the GSTIN sets the state automatically, so purchases from another state use IGST), then **Save**. Leave Code blank to auto-number (V0001…)."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I create a ledger?",
+      "variants": ["Add bank account ledger", "Create expense ledger", "New account ledger", "Add rent ledger"],
+      "tags": ["ledgers", "account group", "bank"],
+      "answer": "Open **Masters › Ledgers** → **New**, enter the Name and choose the **Account group** (for example Bank Accounts, Indirect Expense, Current Liabilities). For a bank used in card/mixed payments tick **Card / bank ledger for mixed payments**. Click **Save**."
+    },
+    {
+      "category": "Masters",
+      "question": "How do loyalty points work?",
+      "variants": ["Create loyalty scheme", "Customer reward points", "Set up loyalty", "Redeem loyalty points"],
+      "tags": ["loyalty schemes", "points", "redeem"],
+      "answer": "Create a scheme in **Masters › Loyalty Schemes** → **New scheme**, for example: Every ₹ 100 earns 1 point, Redeem after 50, ₹ 1 per point. Attach it to customers on their master.\n\nWhen a customer has enough points a **Redeem points** box appears in the invoice Totals (a **Redeem** button in POS). Points carry forward at year end."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I create an item offer?",
+      "variants": ["Offer price for a period", "Festival discount", "Discount for a category", "Item offers"],
+      "tags": ["item offers", "discount", "date window"],
+      "answer": "Open **Masters › Item Offers**: in **Add item** pick the product, set **Starts / Ends**, enter the Discount (net price is shown) and click **Save changes**. The offer price applies only in that window. **Fill category…** applies a % discount to a whole category."
+    },
+    {
+      "category": "Masters",
+      "question": "How do I set wholesale prices with price lists?",
+      "variants": ["Price list", "Different price for wholesale customers", "Wholesale rate"],
+      "tags": ["price lists", "wholesale", "manage lists"],
+      "answer": "1. In **Masters › Price Lists** create the list (for example Wholesale) under **Manage lists**.\n2. Choose a base (Sale rate) and adjustment (for example −5 %), click **Apply to all listed** and **Save**.\n3. Set **Price list = Wholesale** on the customer's master.\n\nPrice priority: active offer → price list → batch/product sale rate."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I add a new product?",
+      "variants": ["Create item", "Add new item", "Product master", "Add HSN code", "Set GST rate for item", "Add MRP and sale rate"],
+      "tags": ["products", "hsn", "mrp", "unit", "regional name", "new item"],
+      "answer": "Open **Inventory › Products** → **New item**:\n1. **General** tab: Name, Regional name, HSN / SAC, Category, Main unit. Leave Code blank to auto-number.\n2. Scan the packet barcode into **Default barcode** (optional).\n3. **Tax & Rates** tab: choose GST % (it splits CGST/SGST/IGST), enter Purchase rate, Sale rate and MRP. Sale rate cannot exceed MRP; “Sale margin %” calculates the price.\n4. **Save**. Add a photo on the **Image** tab for the Touch POS tile."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I set box and piece units?",
+      "variants": ["Alternate unit", "1 box = 12 pieces", "Sell in box and piece"],
+      "tags": ["alternate units", "box", "pieces", "conversion"],
+      "answer": "Turn on **Alternate units** in **Settings › Features**. Then on the product's General tab set **Alternate unit** (for example BOX) and **Base units per alt. unit** (for example 12)."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I import many products from Excel?",
+      "variants": ["Bulk upload items", "Product import template", "Import products excel", "Import customers"],
+      "tags": ["import / export", "excel", "template", "bulk"],
+      "answer": "Go to **Settings › Import / Export** → **Products** → download the **Template**, fill it in Excel, choose the file and click **Import products**. If any row has an error nothing is saved and the row is shown.\n\nCustomers & suppliers import the same way (opening balances can be included). Fill the **OpeningQty** column and tick “Post the OpeningQty column as opening stock” to load stock at the same time."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I enter opening stock?",
+      "variants": ["Add existing stock", "Starting stock", "Initial stock entry"],
+      "tags": ["opening stock", "cost", "expiry"],
+      "answer": "Open **Inventory › Opening Stock**:\n1. Type the item name in “Scan barcode or type item name” and pick it (↑↓, Enter).\n2. Enter **Qty** and **Cost**; for expiring items also the **Expiry date**.\n3. **Save (F2)**. Stock increases immediately.\n\nIt is dated the first day of the financial year and shows in P&L as “Opening stock”."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I adjust stock for damaged or missing goods?",
+      "variants": ["Stock adjustment", "Reduce stock damaged", "Stock count difference", "Add extra stock"],
+      "tags": ["stock adjustment", "in", "out", "damaged"],
+      "answer": "Open **Inventory › Stock Adjustment**, pick the item, choose **In/Out** (Out for damaged/lost, In for extra found), enter Qty and Remarks, then **Save**. There is no GST on adjustments — only stock changes."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I see the stock movement of an item?",
+      "variants": ["Stock history", "Item ledger", "Stock summary", "Current stock value"],
+      "tags": ["stock history", "stock summary"],
+      "answer": "**Inventory › Stock History** shows every movement for an item in date order. **Inventory › Stock Summary** shows quantity and value at cost for all items."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I print barcode labels?",
+      "variants": ["Barcode sticker printing", "Label design", "Print price labels"],
+      "tags": ["barcode labels", "label design", "copies"],
+      "answer": "Open **Inventory › Barcode Labels**, search for the item/batch, enter **Copies** and click **Print labels**. **Label design…** changes the label size (for example 50 × 25 mm), labels per row and whether MRP/price/expiry are shown."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I create a bill of materials?",
+      "variants": ["Create BOM", "Recipe for production", "Raw material finished good"],
+      "tags": ["bom", "finished good", "raw material", "batch size"],
+      "answer": "Turn on **Production / BOM** in Features first. Then **Inventory › Bill of Materials** → **New BOM**: enter Name and Batch size, add the finished product (Kind **Finished good**) and each input (Kind **Raw material**) with quantities, then **Save**."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do I record production?",
+      "variants": ["Production entry", "Manufacture items", "Make packets from loose"],
+      "tags": ["production", "labour cost", "finished qty"],
+      "answer": "Open **Inventory › Production**, choose the **BOM**, enter **Finished qty** and click **Load** — the input (Out) and output (In) lines fill in. Add Labour cost and **Save**. Raw materials go down and finished goods go up at the calculated cost. Reports: “Production: Materials Consumed” and “Production: Goods Generated”."
+    },
+    {
+      "category": "Products & stock",
+      "question": "How do weighing scale barcodes work?",
+      "variants": ["Weighing scale setup", "Scale label barcode", "Loose item by weight", "PLU export"],
+      "tags": ["weighing-scale", "plu", "prefix", "21|5|5|1000"],
+      "answer": "Turn on **Weighing-scale barcodes** in Features and set the format (prefix | code length | value length | divisor, for example 21|5|5|1000). Give the product a PLU code.\n\nScanning a scale label fills in the weight automatically: 2100101001250 = prefix 21 + PLU 00101 + 0 (weight) + 01250 → 1.25 kg.\n\nExport the PLU list for the scale software from **Settings › Import / Export** → “Export PLU file (CSV)”."
+    },
+    {
+      "category": "Products & stock",
+      "question": "Where can I see items that are low in stock or expiring?",
+      "variants": ["Reorder level report", "Expiry report", "Items running low", "Expired items"],
+      "tags": ["rol", "reorder", "expiry report"],
+      "answer": "Use the **Reorder Level (ROL)** report for items running low with a suggested quantity, and the **Expiry Report** for items expiring within 30 days (expired items in red). Open them from **Reports › All Reports**."
+    },
+    {
+      "category": "Purchase",
+      "question": "How do I enter a purchase bill?",
+      "variants": ["Purchase entry", "Add supplier invoice", "Record stock purchase", "Buy stock"],
+      "tags": ["purchase", "supplier inv no", "freight", "batch"],
+      "answer": "Open **Purchase › Purchase**:\n1. **Supplier (F4)** — tax type (IGST for other states) is set automatically.\n2. Enter **Supplier inv. no** and **date**.\n3. **Item (F3)**: enter Qty, Free, Rate, MRP and Sale rate. Leave Batch blank to auto-generate a barcode. Expiry is mandatory for expiring items.\n4. Add Freight and its GST % in Totals if needed.\n5. **Save (F2)**.\n\nStock increases, the supplier balance increases and the bill becomes an outstanding bill. With “Update product rates on purchase” on, the product master rates update too."
+    },
+    {
+      "category": "Purchase",
+      "question": "What is landed cost?",
+      "variants": ["Real cost per item", "Margin turns red in purchase", "Cost including freight"],
+      "tags": ["landed cost", "margin"],
+      "answer": "Landed cost is the real cost per piece: (taxable value + freight) ÷ total pieces including free goods. If GST is claimable, tax is not added to cost. The line's **Margin%** shows margin against MRP; if cost exceeds MRP the line turns red."
+    },
+    {
+      "category": "Purchase",
+      "question": "How do I make a purchase order or receipt note?",
+      "variants": ["Purchase order", "Goods received without bill", "Convert purchase order to purchase"],
+      "tags": ["purchase order", "receipt note", "import order"],
+      "answer": "- **Purchase › Purchase Order**: no stock or account change; later turn it into a purchase with **Import order…**\n- **Purchase › Receipt Note**: goods arrived, bill comes later (stock only)."
+    },
+    {
+      "category": "Purchase",
+      "question": "How do I return goods to a supplier?",
+      "variants": ["Purchase return", "Send back damaged goods", "Debit supplier for return"],
+      "tags": ["purchase return"],
+      "answer": "Use **Purchase › Purchase Return**: choose the supplier, add the items and quantities, and **Save**. Stock goes down and the amount owed to the supplier goes down."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I make a bill in Touch POS?",
+      "variants": ["POS billing", "Cash bill", "Quick billing counter", "How to sell in POS", "F9 POS"],
+      "tags": ["touch pos", "f9", "cash desk", "tendered", "change"],
+      "answer": "1. Open **Sales › Touch POS** (or press **F9**).\n2. Scan the barcode (scanning again increases quantity) or tap a category tab and the item tile.\n3. Choose the **Salesperson** (remembered after the first time).\n4. Tap a cart line to change Qty / Rate / Disc% on the keypad.\n5. **Cash (F2)** → enter **Tendered** → change is shown → **Complete sale**.\n\nThe bill prints automatically and the screen clears. Use **Reprint** to print again."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I take card or UPI payment?",
+      "variants": ["Card payment", "UPI payment", "GPay payment", "Mixed payment", "Split payment cash and card", "F6"],
+      "tags": ["card", "upi", "mixed", "f6"],
+      "answer": "In POS press **Card / UPI** and enter only the last 4 digits of the card or the UPI reference — the software never accepts a full card number or CVV.\n\n**Mixed (F6)** splits the payment, for example Card ₹ 50 + Cash ₹ 40. To leave part on credit, choose the customer first. The parts must add up to the bill amount."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I make a credit bill?",
+      "variants": ["Sales invoice", "Keyboard invoice", "Bill on credit", "Sell to customer on credit", "A4 invoice"],
+      "tags": ["sales invoice", "credit", "f4", "f3"],
+      "answer": "Open **Sales › Sales Invoice**:\n1. **Customer (F4)** — balance, limit and points are shown.\n2. **Payment: Credit**, choose Salesperson.\n3. **Item (F3)** → Enter → Qty; repeat for more items.\n4. **Save (F2)** → choose Print if asked.\n\nCredit bills are not allowed for “Cash Customer”. If the customer has a GSTIN the bill becomes B2B; another state means IGST."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "Are sale prices inclusive of tax?",
+      "variants": ["Tax inclusive or exclusive", "Price includes GST", "How is GST calculated on bill"],
+      "tags": ["unit price includes tax", "taxable"],
+      "answer": "By default sales prices **include tax** — ₹ 45 means the customer pays exactly ₹ 45. Taxable value = price × 100 ÷ (100 + GST%). Change this per bill type with **Unit price includes tax** in **Settings › Screen Options**."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I give a discount on a bill?",
+      "variants": ["Item discount", "Discount percentage", "Change price on bill"],
+      "tags": ["disc%", "discount", "rate"],
+      "answer": "In POS tap the cart line and use **Disc%** (or **Rate**) on the keypad. In Sales Invoice enter the discount on the item line. If **Disable rate editing** is on in Screen Options, cashiers cannot change prices. For scheduled discounts use **Masters › Item Offers**."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I redeem a customer's loyalty points?",
+      "variants": ["Use loyalty points on bill", "Redeem points"],
+      "tags": ["redeem", "loyalty"],
+      "answer": "Once the customer has enough points (as set in the scheme), a **Redeem points** box appears in the invoice Totals, or a **Redeem** button in POS. For example, redeeming 50 points gives ₹ 50 off."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I make an estimate or sales order?",
+      "variants": ["Quotation", "Estimate", "Sales order", "Convert order to bill", "Delivery note"],
+      "tags": ["estimate", "sales order", "convert to bill", "delivery note"],
+      "answer": "Use **Sales › Estimate** or **Sales › Sales Order** — enter and save like a bill; stock and accounts do not change. When delivering, open it and click **Convert to bill**, or use **Import order…** in Sales Invoice; it becomes “Converted”.\n\nA **Delivery Note** only reduces stock (the bill comes later)."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I take back goods from a customer?",
+      "variants": ["Sales return", "Customer returns item", "Refund customer", "Credit note for return"],
+      "tags": ["sales return", "refund"],
+      "answer": "Open **Sales › Sales Return**: choose the customer, Payment Credit (or Cash for a cash refund), add the item, Qty and Rate, and **Save**. Stock goes up, the customer's balance goes down and GST is reversed (shown as a Credit Note in GSTR-1)."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I edit a saved bill?",
+      "variants": ["Modify invoice", "Change saved bill", "Search bills", "Find old bill", "Reprint old bill"],
+      "tags": ["search bills", "version", "also open by"],
+      "answer": "Open **Sales › Search Bills**, open the bill, make your changes and **Save**. The bill number stays the same and it becomes “version 2”. If someone else has it open you'll see “Also open by …”. Press **Ctrl+P** to print the open bill."
+    },
+    {
+      "category": "Sales & billing",
+      "question": "How do I cancel a bill?",
+      "variants": ["Delete bill", "Void invoice", "Cancel invoice", "Remove a sale"],
+      "tags": ["cancel bill", "void report", "reason"],
+      "answer": "Open the bill from **Search Bills** → **Cancel bill** → enter a reason → confirm with your password. Stock, accounts and loyalty points are reversed. The bill is never deleted — it stays in the **Void Report**.\n\nA credit bill with a receipt settled against it cannot be cancelled; cancel the receipt first. You need the Cancel right."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I record money received from a customer?",
+      "variants": ["Receipt voucher", "Customer payment received", "Collect outstanding", "Bill wise receipt", "Allocate payment to bills"],
+      "tags": ["receipt", "allocate", "bill-by-bill"],
+      "answer": "Open **Accounts › Receipt**:\n1. **Received into**: Cash (or the bank ledger).\n2. Line: choose the customer ledger and Amount.\n3. Click **Allocate** → **Auto (oldest first)** → **Apply** (or allocate to specific bills).\n4. Add a Narration → **Save (F2)** → Print the receipt.\n\n**Reports › Outstanding Ageing** shows how long each bill has been open."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I pay a supplier?",
+      "variants": ["Payment voucher", "Pay by cheque", "Pay supplier bill", "Record expense payment"],
+      "tags": ["payment", "cheque no", "paid from"],
+      "answer": "Open **Accounts › Payment** → **Paid from** Cash or Bank → line: supplier/expense ledger and amount → **Allocate** to bills → enter Cheque no, date and bank if paying by cheque → **Save**."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I mark a cheque as cleared or bounced?",
+      "variants": ["Cheque register", "Cheque bounced", "Cheque cleared", "Uncleared cheques"],
+      "tags": ["cheque register", "cleared", "bounced", "reminders"],
+      "answer": "Open **Accounts › Cheque Register**, click the cheque and choose **Cleared** or **Bounced**. Uncleared cheques appear in the dashboard Reminders."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I record cash deposited in the bank?",
+      "variants": ["Contra entry", "Cash to bank", "Bank withdrawal", "Transfer between cash and bank"],
+      "tags": ["contra", "deposit", "withdraw"],
+      "answer": "Use **Accounts › Contra**: Account = the bank ledger, Header side **Debit**, line: **Cash** with the amount → **Save**. Cash goes down and bank goes up. Contra only allows cash and bank ledgers."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I make a journal entry?",
+      "variants": ["Journal voucher", "Adjustment entry", "Record rent due", "Expense payable entry"],
+      "tags": ["journal", "dr", "cr", "balanced"],
+      "answer": "Open **Accounts › Journal**, add lines with Dr and Cr amounts (for example Shop Rent Dr 15000, Rent Payable Cr 15000). When **Balanced** shows at the bottom, click **Save**. Every voucher must balance (Dr = Cr)."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "Which voucher should I use?",
+      "variants": ["Difference between receipt payment contra journal", "Debit note credit note", "Types of vouchers"],
+      "tags": ["voucher types", "debit note", "credit note"],
+      "answer": "- **Receipt**: money received\n- **Payment**: money paid out (supplier, rent, electricity)\n- **Contra**: cash ↔ bank\n- **Journal**: adjustments with no cash movement\n- **Debit / Credit Note**: price-difference corrections (for example a supplier discount)\n\nBills post to accounts automatically; vouchers are only for money movements without a bill."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I correct or cancel a voucher?",
+      "variants": ["Edit receipt", "Wrong payment entry", "Voucher search", "Cancel receipt"],
+      "tags": ["voucher search"],
+      "answer": "Open **Accounts › Voucher Search**, find the voucher, open it, then correct and save it, or **Cancel** it."
+    },
+    {
+      "category": "Payments & accounts",
+      "question": "How do I enter opening balances?",
+      "variants": ["Cash in hand opening", "Bank opening balance", "Customer old balance", "Supplier old balance", "Migrate from old software"],
+      "tags": ["opening balances", "dr", "cr", "difference"],
+      "answer": "Open **Accounts › Opening Balances** — every ledger is in one table. Enter the amount and Dr/Cr for each (cash and bank Dr, customers who owe you Dr, suppliers you owe Cr) and click **Save N change(s)**.\n\nThe difference goes to “Opening Balance Difference” (owner's capital). A customer/supplier opening amount becomes a bill that later receipts can settle."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I get the GSTR-1 report?",
+      "variants": ["GST return", "GSTR1", "Monthly GST filing", "B2B B2C report", "HSN summary"],
+      "tags": ["gstr1", "b2b", "b2c", "hsn summary", "workbook"],
+      "answer": "Every month before the 11th:\n1. Open **Reports › GST / GSTR-1**.\n2. From = 1st of the month, To = last day → **Run**.\n3. Check B2B, B2C Large, B2C Small, Credit Notes, HSN Summary and Documents Issued.\n4. **GSTR-1 workbook** gives all sections in one Excel file for your accountant.\n\nMake sure every product has an HSN code, otherwise a “(blank)” row appears in the HSN Summary."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I know how much GST to pay?",
+      "variants": ["GST payable", "Output vs input tax", "Net GST", "Input tax credit"],
+      "tags": ["output vs input tax", "net payable", "itc"],
+      "answer": "Run the **Output vs Input Tax** report: GST on sales − GST on purchases = Net Payable, shown separately for CGST, SGST, IGST and Cess."
+    },
+    {
+      "category": "GST & reports",
+      "question": "When is IGST applied instead of CGST and SGST?",
+      "variants": ["IGST or CGST SGST", "Inter state bill", "Other state customer tax"],
+      "tags": ["igst", "cgst", "sgst", "inter-state", "state"],
+      "answer": "Within your own state a bill uses **CGST + SGST** (for example 18% = 9% + 9%). When the customer or supplier is in **another state** (by their State or GSTIN), **IGST** applies automatically."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I run and export a report?",
+      "variants": ["Find a report", "Export report to excel", "Print report pdf", "Email a report", "All reports"],
+      "tags": ["all reports", "excel", "pdf", "run"],
+      "answer": "Open **Reports › All Reports** (about 70 reports; use “Find a report” to search). Choose From/To dates and filters, click **Run**, then use **Excel**, **PDF / Print** or **E-mail**. Clicking a bill or ledger row opens it."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I check the day's sales and close the counter?",
+      "variants": ["End of day report", "Daily closing", "Cash tally", "Counter summary", "Today's sales"],
+      "tags": ["end of day", "net cash", "counter summary"],
+      "answer": "Run **Reports › End of Day** at closing: cash/card/credit sales, returns, cancelled bills and cash in hand. Match **Net cash** with the cash drawer. **Counter Summary** shows totals per counter/user. The **Dashboard** shows today's sales live."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I see profit and the balance sheet?",
+      "variants": ["Profit and loss", "Balance sheet", "Trial balance", "Net profit", "Product wise profit"],
+      "tags": ["profit & loss", "balance sheet", "trial balance", "books balance"],
+      "answer": "Under **Accounts** (or Reports):\n- **Trial Balance** — Status should read “Books balance”\n- **Profit & Loss** — gross and net profit including closing stock\n- **Balance Sheet** — Difference must be 0.00\n- **Product-wise Profit** — profit on each item"
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I see a customer's balance and dues?",
+      "variants": ["Ledger statement", "Customer outstanding", "Who owes money", "Ageing report", "Receivables"],
+      "tags": ["ledger statement", "outstanding ageing", "0-30"],
+      "answer": "**Accounts › Ledger Statement** shows every transaction and running balance of a customer or ledger. **Reports › Outstanding Ageing** shows who owes money and for how long (0–30, 31–60 … >180 days)."
+    },
+    {
+      "category": "GST & reports",
+      "question": "How do I see salesperson commission?",
+      "variants": ["Salesperson summary", "Sales by salesman", "Commission report"],
+      "tags": ["salesperson summary", "commission"],
+      "answer": "Run the **Salesperson Summary** report from **Reports › All Reports** — it shows sales and commission per salesperson."
+    },
+    {
+      "category": "Backup & year end",
+      "question": "How do I take a backup?",
+      "variants": ["Download backup", "Save data", "Backup database", "Data safety"],
+      "tags": ["companies & backup", "zip"],
+      "answer": "Go to **Settings › Companies & Backup** → **Download backup** and keep the .zip on a pen drive or cloud storage. Do this at least once a week and always before year-end closing or Reset Data."
+    },
+    {
+      "category": "Backup & year end",
+      "question": "How do I restore a backup?",
+      "variants": ["Restore data", "Bring back backup", "Load backup file"],
+      "tags": ["restore", "new company"],
+      "answer": "In **Settings › Companies & Backup** use **Restore into a new company**: choose the backup file, give a new name and click **Restore**. The current company is not touched — the backup comes in as a separate company (open it from the company list at the top)."
+    },
+    {
+      "category": "Backup & year end",
+      "question": "How do I close the financial year?",
+      "variants": ["Year end closing", "Start new financial year", "Carry forward balances", "New year billing after March 31"],
+      "tags": ["year end closing", "fy", "carry forward", "read-only year"],
+      "answer": "You don't have to close the old year to bill on 1 April:\n1. **Settings › Year End Closing** → **Only create next year**, choose the new FY in the FY box at the top and keep billing (numbers restart from 1).\n2. When the accountant has finished, choose the old FY and open **Year End Closing**.\n3. Check the preview (trial balance difference 0.00) and fix any blockers.\n4. Take a backup.\n5. **Close FY** → confirm password.\n\nBalances, batch stock and loyalty points carry forward; the old year becomes read-only. Nothing is deleted."
+    },
+    {
+      "category": "Backup & year end",
+      "question": "How do I copy data to another company or branch?",
+      "variants": ["Copy to company", "Second branch", "Transfer masters to another company", "Multiple companies"],
+      "tags": ["copy to company", "transfer"],
+      "answer": "Use **Settings › Copy to Company** to copy products, customers and bills to another company (for example a second branch). Switch companies from the company list at the top."
+    },
+    {
+      "category": "Backup & year end",
+      "question": "How do I clear test data before going live?",
+      "variants": ["Reset data", "Delete all transactions", "Start fresh"],
+      "tags": ["reset data", "tools"],
+      "answer": "**Settings › Reset Data** clears all transactions (masters stay). It asks for a code, the company name and your password. It cannot be undone — take a backup first."
+    },
+    {
+      "category": "Shortcuts",
+      "question": "What are the keyboard shortcuts?",
+      "variants": ["Hotkeys", "Shortcut keys", "F2 F3 F4 keys", "Keyboard keys list"],
+      "tags": ["f2", "f3", "f4", "f6", "f8", "f9", "ctrl+k", "ctrl+p", "esc"],
+      "answer": "- **F2** Save (cash payment in POS)\n- **F3** Find item / scan\n- **F4** Customer / supplier\n- **F6** Mixed payment\n- **F8** New bill\n- **F9** Open Touch POS\n- **Ctrl+K** Jump to any screen or report\n- **Ctrl+P** Print the open bill\n- **↑ ↓ Enter** Pick from a list\n- **Esc** Close a dialog"
+    },
+    {
+      "category": "Shortcuts",
+      "question": "What should I do every day, week and month?",
+      "variants": ["Daily checklist", "Weekly tasks", "Monthly tasks", "Routine"],
+      "tags": ["checklist", "daily", "weekly", "monthly"],
+      "answer": "**Daily**: log in and check the counter name, read Dashboard Reminders, enter purchases and print labels, enter receipts as money comes in, match End of Day “Net cash” with the drawer, contra when cash is banked.\n\n**Weekly / monthly**: check Void Report, Reorder Level and Expiry Report; download a backup; before the 11th send the GSTR-1 workbook to the accountant; check Trial Balance reads “Books balance”."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Select a salesperson",
+      "variants": ["Bill not saving salesperson", "Salesperson required error"],
+      "tags": ["select a salesperson"],
+      "answer": "No salesperson was chosen. Choose one on the bill, or turn off **Salesperson required on sales** in **Settings › Features**."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Select a customer for a credit bill",
+      "variants": ["Credit bill for cash customer", "Cannot save credit bill"],
+      "tags": ["select a customer", "cash customer"],
+      "answer": "A credit bill needs a real customer — it is not allowed for “Cash Customer”. Choose the customer, or add one with **+ new**."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Negative stock",
+      "variants": ["Stock not available", "Item has no stock warning", "Save anyway"],
+      "tags": ["negative stock"],
+      "answer": "You are selling more than is in stock. Check the purchase / opening stock entry. With **Warn** you can click “Save anyway”; with **Block** the bill will not save (see Settings › Features › Negative stock)."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Credit limit exceeded",
+      "variants": ["Balance after this bill exceeds the credit limit", "Customer over limit"],
+      "tags": ["credit limit"],
+      "answer": "The customer's balance after this bill would exceed their credit limit. Collect the old balance, raise the limit on the customer master, or change the **Credit limit** setting (Ignore / Warn / Block) in Features."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "GSTIN shows a red error",
+      "variants": ["Invalid GSTIN", "GSTIN wrong", "GSTIN state mismatch"],
+      "tags": ["gstin", "red message"],
+      "answer": "There is a typing mistake or a state mismatch. Compare with the GST certificate — watch for O (letter) vs 0 (zero) and I vs 1. A wrong last character means a typing mistake."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Financial year is closed and read-only",
+      "variants": ["Cannot add bill in old year", "Year is read only"],
+      "tags": ["read-only", "closed year"],
+      "answer": "You tried to add or change a bill in a closed year. Choose the new year in the **FY** box at the top."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: Payments have been settled against this bill",
+      "variants": ["Cannot cancel bill with receipt"],
+      "tags": ["settled", "receipt"],
+      "answer": "A receipt is allocated to this bill. Cancel that receipt first (Accounts › Voucher Search), then cancel the bill."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Error: This document was changed by another user",
+      "variants": ["Bill changed by someone else", "Concurrency error"],
+      "tags": ["changed by another user"],
+      "answer": "Someone else saved the same bill while you had it open. Reload the page and make your change again."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "What does Offline at the top mean?",
+      "variants": ["Offline indicator", "Live update not working", "Dashboard not refreshing"],
+      "tags": ["offline", "signalr", "live update"],
+      "answer": "The live-update connection to the server is down. Billing still works; check the server and network. The dashboard refreshes instantly again once it reconnects."
+    },
+    {
+      "category": "Troubleshooting",
+      "question": "Why can't I see a menu or button?",
+      "variants": ["Menu missing", "No access to screen", "Button not visible", "Permission denied"],
+      "tags": ["rights", "hidden"],
+      "answer": "Menus and buttons appear only when your role has the right for that screen (for example Add, Edit, Cancel). Ask the admin to tick the right in **Settings › Roles & Rights**. Some screens also need the feature turned on in **Settings › Features**."
+    }
+  ]
+}

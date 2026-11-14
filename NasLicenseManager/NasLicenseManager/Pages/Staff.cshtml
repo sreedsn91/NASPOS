@@ -1,0 +1,36 @@
+@page
+@model StaffModel
+@{ ViewData["Title"] = "Staff"; }
+<div class="page-header"><h1>Staff</h1></div>
+<div class="card flush">
+<table class="grid">
+    <thead><tr><th>User name</th><th>Name</th><th>Role</th><th>Status</th><th>Added</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var u in Model.Users)
+    {
+        <tr class="@(u.IsActive ? "" : "disabled")">
+            <td><b>@u.UserName</b></td><td>@u.DisplayName</td><td>@(u.IsAdmin ? "Administrator" : "Staff")</td>
+            <td>@(u.IsActive ? "Active" : "Disabled")</td><td>@u.CreatedAt.ToString("dd-MM-yyyy")</td>
+            <td class="actions">
+                <form method="post" asp-page-handler="Reset" asp-route-id="@u.Id" class="inline">
+                    <input name="newPassword" type="password" placeholder="New password" autocomplete="new-password" />
+                    <button class="btn sm" type="submit">Set password</button></form>
+                <form method="post" asp-page-handler="Toggle" asp-route-id="@u.Id" class="inline">
+                    <button class="btn sm" type="submit">@(u.IsActive ? "Disable" : "Enable")</button></form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>
+<div class="card narrow-wide">
+    <h2>Add a staff member</h2>
+    @if (Model.Error is not null) { <div class="alert error">@Model.Error</div> }
+    <form method="post" asp-page-handler="Add" class="form-grid">
+        <label class="field"><span>User name</span><input name="UserName" value="@Model.UserName" required autocomplete="off" /></label>
+        <label class="field"><span>Name</span><input name="DisplayName" value="@Model.DisplayName" /></label>
+        <label class="field"><span>Password (8+ characters, letters and digits)</span><input name="Password" type="password" required autocomplete="new-password" /></label>
+        <label class="check"><input type="checkbox" name="IsAdmin" value="true" /> Administrator (can manage staff and the signing key)</label>
+        <div class="span-2"><button class="btn primary" type="submit">Add</button></div>
+    </form>
+</div>

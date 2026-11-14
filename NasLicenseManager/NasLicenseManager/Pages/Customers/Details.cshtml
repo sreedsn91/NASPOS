@@ -1,0 +1,120 @@
+@page "{id:int}"
+@model NasLicenseManager.Pages.Customers.DetailsModel
+@{ ViewData["Title"] = Model.Customer.CompanyName; var cur = Model.State.Current; }
+<div class="page-header">
+    <h1>@Model.Customer.CompanyName <span class="badge @Model.State.Css">@Model.State.State</span> <span class="badge">@ProductCodes.Name(Model.Customer.Product)</span></h1>
+    <a class="btn" href="/Customers/Edit/@Model.Customer.Id">Edit details</a>
+</div>
+
+@if (Model.JustIssued is { } k)
+{
+    <div class="card highlight">
+        <h2>New key — @LicenseIssuer.PlanName(k.Months), @LicenseIssuer.UsersText(k.MaxUsers), @(k.ExpiresOn is null ? "lifetime" : $"valid {LicenseIssuer.Dmy(k.StartsOn)} – {LicenseIssuer.Dmy(k.ExpiresOn)}")</h2>
+        <textarea id="newkey" class="key" rows="3" readonly>@k.Key</textarea>
+        <textarea id="newmsg" class="hidden" readonly>@Model.Message(k)</textarea>
+        <div class="toolbar">
+            <button class="btn primary" type="button" data-copy="newkey">Copy key</button>
+            <button class="btn" type="button" data-copy="newmsg">Copy message for customer</button>
+            @if (Model.Customer.Email is { Length: > 0 } mail)
+            {
+                <a class="btn" href="mailto:@mail?subject=@Uri.EscapeDataString("NAS POS Pro license key")&body=@Uri.EscapeDataString(Model.Message(k))">E-mail customer</a>
+            }
+            @if (Model.Customer.Phone is { Length: > 0 } phone)
+            {
+                var digits = new string(phone.Where(char.IsDigit).ToArray());
+                if (digits.Length == 10) { digits = "91" + digits; }
+                <a class="btn" target="_blank" rel="noopener" href="https://wa.me/@digits?text=@Uri.EscapeDataString(Model.Message(k))">WhatsApp</a>
+            }
+        </div>
+    </div>
+}
+
+<div class="cols">
+    <div class="card">
+        <h2>Customer</h2>
+        <dl class="facts">
+            <dt>GSTIN</dt><dd class="mono">@(Model.Customer.Gstin ?? "—")</dd>
+            <dt>Contact</dt><dd>@(Model.Customer.ContactPerson ?? "—")</dd>
+            <dt>Phone</dt><dd>@(Model.Customer.Phone ?? "—")</dd>
+            <dt>E-mail</dt><dd>@(Model.Customer.Email ?? "—")</dd>
+            <dt>City</dt><dd>@(Model.Customer.City ?? "—")</dd>
+            <dt>Added</dt><dd>@Model.Customer.CreatedAt.ToString("dd-MM-yyyy") by @Model.Customer.CreatedBy</dd>
+        </dl>
+        @if (Model.Customer.Notes is { Length: > 0 } notes) { <p class="pre">@notes</p> }
+    </div>
+    <div class="card">
+        <h2>Current license</h2>
+        @if (cur is null)
+        {
+            <p class="muted">No key issued yet.</p>
+        }
+        else
+        {
+            <dl class="facts">
+                <dt>Length</dt><dd>@LicenseIssuer.PlanName(cur.Months)</dd>
+                <dt>Users</dt><dd>@LicenseIssuer.UsersText(cur.MaxUsers)</dd>
+                <dt>Valid</dt><dd>@(cur.ExpiresOn is null ? "Lifetime" : $"{LicenseIssuer.Dmy(cur.StartsOn)} – {LicenseIssuer.Dmy(cur.ExpiresOn)}")</dd>
+                <dt>Days left</dt><dd>@(Model.State.DaysLeft is { } d ? (d < 0 ? $"Expired {-d} days ago" : $"{d + 1}") : "—")</dd>
+                <dt>Key ID</dt><dd class="mono">@cur.KeyId</dd>
+            </dl>
+        }
+    </div>
+</div>
+
+<div class="card" id="issue">
+    <h2>@(cur is null ? "Issue a key" : "Renew / issue a new key")</h2>
+    @if (!Model.SigningKeyReady)
+    {
+        <div class="alert error">There is no signing key on this PC. An administrator must restore it on the <a href="/SigningKey">Signing key</a> page.</div>
+    }
+    @if (Model.Error is not null) { <div class="alert error">@Model.Error</div> }
+    <form method="post" asp-page-handler="Issue" class="form-grid">
+        <div class="field span-2"><span>Subscription length</span>
+            <div class="duration">
+                <label class="inline"><input name="Years" type="number" min="0" max="@(LicenseKey.MaxMonths / 12)" value="@Model.Years" id="years" /> years</label>
+                <label class="inline"><input name="MonthsPart" type="number" min="0" max="11" value="@Model.MonthsPart" id="months" /> months</label>
+                <label class="check"><input type="checkbox" name="Lifetime" value="true" checked="@Model.Lifetime" id="lifetime" /> Lifetime</label>
+                <span class="quick">Quick:
+                    <button type="button" class="btn sm" data-len="0,1">1 month trial</button>
+                    <button type="button" class="btn sm" data-len="0,6">6 months</button>
+                    <button type="button" class="btn sm" data-len="1,0">1 year</button>
+                    <button type="button" class="btn sm" data-len="2,0">2 years</button></span>
+            </div>
+            <small class="muted">Any length from 1 month to @(LicenseKey.MaxMonths / 12) years — e.g. 0 years 1 month for a trial, 1 year 6 months — or Lifetime.</small></div>
+        <label class="field"><span>Number of users</span>
+            <input name="MaxUsers" type="number" min="1" max="@LicenseKey.MaxUserLimit" value="@Model.MaxUsers" id="users" />
+            <label class="check"><input type="checkbox" name="UnlimitedUsers" value="true" checked="@Model.UnlimitedUsers" id="unlimited" /> Unlimited users</label>
+            <small class="muted">Most active users the shop can have in NAS POS Pro. Adding more is blocked until they buy a bigger subscription.</small></label>
+        <label class="field"><span>Start date</span><input name="StartsOn" type="date" value="@Model.StartsOn.ToString("yyyy-MM-dd")" id="start" />
+            <small class="muted" id="validUntil"></small></label>
+        <label class="field span-2"><span>Notes (payment ref., invoice no., …)</span><input name="Notes" maxlength="1000" /></label>
+        <div class="span-2"><button class="btn primary" type="submit" disabled="@(!Model.SigningKeyReady)">Generate key</button>
+            <span class="muted small">For <b>@Model.Customer.CompanyName</b>@(Model.Customer.Gstin is { } g ? $" · GSTIN {g}" : "")</span></div>
+    </form>
+</div>
+
+<div class="card flush">
+    <h2 class="pad">Keys issued <span class="muted">@Model.Customer.Licenses.Count</span></h2>
+    <table class="grid">
+        <thead><tr><th>Issued</th><th>Key ID</th><th>Length</th><th>Users</th><th>Valid</th><th>Notes</th><th>By</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var l in Model.Customer.Licenses)
+        {
+            <tr>
+                <td class="nowrap">@l.IssuedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                <td class="mono">@l.KeyId</td>
+                <td>@LicenseIssuer.PlanName(l.Months)</td>
+                <td>@LicenseIssuer.UsersText(l.MaxUsers)</td>
+                <td class="nowrap">@(l.ExpiresOn is null ? "Lifetime" : $"{LicenseIssuer.Dmy(l.StartsOn)} – {LicenseIssuer.Dmy(l.ExpiresOn)}")</td>
+                <td>@l.Notes</td>
+                <td>@l.IssuedBy</td>
+                <td class="actions"><textarea id="k@(l.Id)" class="hidden" readonly>@l.Key</textarea>
+                    <textarea id="m@(l.Id)" class="hidden" readonly>@Model.Message(l)</textarea>
+                    <button class="btn sm" type="button" data-copy="k@(l.Id)">Copy key</button>
+                    <button class="btn sm" type="button" data-copy="m@(l.Id)">Copy message</button></td>
+            </tr>
+        }
+        @if (Model.Customer.Licenses.Count == 0) { <tr><td colspan="8" class="empty">No keys issued yet.</td></tr> }
+        </tbody>
+    </table>
+</div>

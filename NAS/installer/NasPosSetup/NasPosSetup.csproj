@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Setup wizard (WinForms). .NET Framework 4.8 ships with Windows 10/11 and Server 2016+, so the exe runs before anything is installed.
+       build-installer.ps1 appends the payload zip (app + scripts + prerequisites) to the compiled exe. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>NasPosSetup</AssemblyName>
+    <RootNamespace>NasPosSetup</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Must run 64-bit: a 32-bit process would start the WOW64 PowerShell, which cannot enable Windows features,
+         and would read the 32-bit registry view where 64-bit SQL Server instances are not listed. -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Product>NAS POS Pro Setup</Product>
+    <Company>NAS POS Pro</Company>
+    <Description>Installs NAS POS Pro on IIS with SQL Server</Description>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NAS Chatbot</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="chat-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">NAS</div>
+        <div>NAS Chatbot<small>Help for NAS POS Pro — works offline</small></div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn small" id="clear" type="button" title="Start a new conversation">New chat</button>
+      <a class="btn small" href="admin.html" title="Add or edit questions and answers">Manage Q&amp;A</a>
+    </header>
+
+    <main class="messages" id="messages" aria-live="polite"></main>
+
+    <footer class="composer">
+      <form id="ask" autocomplete="off">
+        <textarea id="input" rows="1" maxlength="300" placeholder="Ask about NAS POS Pro… e.g. How do I cancel a bill?" aria-label="Your question"></textarea>
+        <button class="btn primary" type="submit" id="send">Send</button>
+      </form>
+      <div class="hint">Enter to send · Shift+Enter for a new line · Type <b>help</b> to see topics</div>
+    </footer>
+  </div>
+  <script src="common.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

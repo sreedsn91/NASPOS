@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FDB9BACA-6723-43B4-B349-DBB5621761CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasChatbot", "src\NasChatbot\NasChatbot.csproj", "{BA28CE33-D9A2-4A32-A134-B8B86A775D13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D9E2B987-C18D-42A0-B656-C3AB2D21F5A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasChatbot.Tests", "tests\NasChatbot.Tests\NasChatbot.Tests.csproj", "{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA28CE33-D9A2-4A32-A134-B8B86A775D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA28CE33-D9A2-4A32-A134-B8B86A775D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA28CE33-D9A2-4A32-A134-B8B86A775D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA28CE33-D9A2-4A32-A134-B8B86A775D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA28CE33-D9A2-4A32-A134-B8B86A775D13} = {FDB9BACA-6723-43B4-B349-DBB5621761CB}
+		{EEE9A821-24BA-478F-AB7F-B8CF69FA67B2} = {D9E2B987-C18D-42A0-B656-C3AB2D21F5A7}
+	EndGlobalSection
+EndGlobal
